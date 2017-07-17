@@ -1,0 +1,23 @@
+﻿@using TranslationMVC.ViewModel
+@model UserViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>注册</h2>
+<span>@ViewBag.errorMsg</span>
+@using (Html.BeginForm("AddUser","User",FormMethod.Post))
+{
+    @Html.ValidationMessage("username",new { @style="color:red;"})
+    <br />
+    <span>用户名</span>
+    @Html.TextBoxFor(c=>c.username,new { @placeholder="username"})
+    <br />
+    @Html.ValidationMessage("password",new { @style = "color:red;" })    
+    <br />
+    <span>密码</span>
+    @Html.PasswordFor(p=>p.password)
+    <br />
+    <input type="submit" name="BtnSubmit" value="注册" />
+    <input type="reset" name="BtnReset" value="重置"/> 
+}

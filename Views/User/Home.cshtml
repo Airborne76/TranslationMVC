@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+@using TranslationMVC.ViewModel
+@model HomeViewModel
+
+<h2>Hello,@Model.username</h2>
+<form action="/User/Upload" method="post" enctype="multipart/form-data">
+    @Html.ValidationMessage("projectname", new { @style = "color:red;" })
+    <br />
+    <span>Project Name</span>
+    <br />
+    @Html.TextBoxFor(c => c.projectname, new { @placeholder="projectname"})
+    <br />
+    <br />
+        <span>Select File</span>
+        <input type="file" name="fileUpload" value="" />
+    <br />
+    <span>Message:</span>
+    <br />
+     @Html.TextAreaFor(t=>t.message,new { @rows="4",@cols="40"})
+    <br />
+    <input type="submit" name="name" value="Upload" />
+</form>
+<h3>@ViewBag.uploadmsg</h3>
+
+

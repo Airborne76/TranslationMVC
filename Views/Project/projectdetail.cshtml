@@ -1,0 +1,53 @@
+﻿@using TranslationMVC.ViewModel
+@model ProjectDetailViewModel
+@{
+    ViewBag.Title = "projectdetail";
+}
+<h2>projectdetail</h2>
+<h3>From @Model.projectinfo.user.username</h3>
+<p>@Model.projectinfo.message</p>
+<div id="update"></div>
+@foreach(var text in Model.projectinfo.texts)
+{
+    <div>
+        <div><span>@text.key</span></div>
+        <div><span>@text.text</span></div>       
+         @using (Html.BeginForm("upload", "project", FormMethod.Post, new { @class = "aj" }))
+         {
+             <div class="translation"></div>
+             <div class="userinfo"></div>
+             <input type="hidden" value="@text.Id" name="id" />
+             @Html.TextArea("Translation", new { rows = 5, cols = 50 })
+            <span class="loading" style="display:none"> <img src="~/Content/huaji2.gif" /></span>
+             <br />
+             <button type="submit">Submit</button>                          
+         }
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".aj").submit(function (event) {
+            event.preventDefault();
+            send(this);
+        });
+    });
+    function send(form) {
+        $(form).children(".loading").show();
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            dataType: "json",
+            data: $(form).serialize(),
+            success: function (result) {
+                $(form).children(".loading").hide();
+                success(result,form);
+            }
+        });
+    }
+    function success(result, form) {
+        var translation = result.translatedText;
+        var userinfo = result.username + "于" + result.updateTime;
+        $(form).children(".translation").html(translation);
+        $(form).children(".userinfo").html(userinfo);
+    }
+</script>

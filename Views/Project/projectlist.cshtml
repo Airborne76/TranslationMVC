@@ -1,0 +1,22 @@
+﻿@using TranslationMVC.ViewModel
+@model ProjectListViewModel
+@{
+    ViewBag.Title = "projectlist";
+}
+<h2>projectlist</h2>
+<table>
+    <tr>
+        <th>ProjectName</th>
+        <th>CreateTime</th>
+        <th>Creator</th>
+    </tr>
+    @foreach (var project in Model.projectlist)
+    {
+        <tr>
+            <th>@Html.ActionLink(project.projectname,"projectdetail",new { id=project.Id})</th>
+            <th>@project.createtime</th>
+            <th>@project.user.username</th>
+        </tr>
+    }
+</table>
+

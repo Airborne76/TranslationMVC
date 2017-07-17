@@ -1,0 +1,19 @@
+﻿@using TranslationMVC.ViewModel
+@model UserListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+<table>
+    <tr>
+        <th>username</th>
+        <th>password</th>
+    </tr>
+    @foreach (var user in Model.userlist)
+    {
+        <tr>
+            <th>@user.username</th>
+            <th>@user.password</th>
+        </tr>
+    }
+</table>
